@@ -6,7 +6,6 @@ return {
 			ensure_installed = {
 				"javascript",
 				"typescript",
-				"c",
 				"css",
 				"gitignore",
 				"graphql",
