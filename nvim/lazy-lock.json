@@ -29,6 +29,7 @@
   "mason-lspconfig.nvim": { "branch": "main", "commit": "25c11854aa25558ee6c03432edfa0df0217324be" },
   "mason.nvim": { "branch": "main", "commit": "e2f7f9044ec30067bc11800a9e266664b88cda22" },
   "mini.ai": { "branch": "main", "commit": "9b9b7cfa38b4871c3e44cfe89cf6d53fd40684d9" },
+  "mini.animate": { "branch": "main", "commit": "d33ddf0eefee6338bbd95805c4595c1b34e6bfe2" },
   "mini.hipatterns": { "branch": "main", "commit": "797cbdc893cdcc2f0fbc05a23b4dae238a1fb0ae" },
   "mini.icons": { "branch": "main", "commit": "a2742459f0ee32806c2438ca06b4d8b331f3f4d4" },
   "mini.pairs": { "branch": "main", "commit": "694d9beb488ff1afaf3d1977b067e53c827d9af5" },
