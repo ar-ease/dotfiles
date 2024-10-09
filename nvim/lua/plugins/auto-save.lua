@@ -14,8 +14,9 @@ return {
           cleaning_interval = 1250, -- Automatically clean MsgArea after displaying `message`
         },
 
-        -- if you also want to save on insert leave then make the below like    trigger_events = {"InsertLeave", "TextChanged"}, 
-      trigger_events = {"InsertLeave", "TextChanged"},  -- Trigger only on file changes / vim events that trigger auto-save. See :h events
+
+      --trigger_events = {"InsertLeave", "TextChanged"}, --  vim events that trigger auto-save. See :h events
+      trigger_events = {"BufLeave"},  -- only trigger when leaving buffer
         condition = function(buf)
           local fn = vim.fn
           local utils = require("auto-save.utils.data")
