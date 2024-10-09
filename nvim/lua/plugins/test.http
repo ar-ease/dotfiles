@@ -1,0 +1,35 @@
+# GET Request to fetch all users
+GET https://jsonplaceholder.typicode.com/users
+Accept: application/json
+
+###
+# GET Request to fetch a single user
+GET https://jsonplaceholder.typicode.com/users/1
+Accept: application/json
+
+###
+
+# POST Request to create a new user
+POST https://jsonplaceholder.typicode.com/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com"
+}
+
+###
+
+# PUT Request to update a user
+PUT https://jsonplaceholder.typicode.com/users/1
+Content-Type: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "jane.doe@example.com"
+}
+
+###
+
+# DELETE Request to remove a user
+DELETE https://jsonplaceholder.typicode.com/users/1
