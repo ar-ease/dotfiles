@@ -44,6 +44,13 @@ keymap.set("n", "<C-S-l>", "<C-w>>")
 keymap.set("n", "<C-S-k>", "<C-w>+")
 keymap.set("n", "<C-S-j>", "<C-w>-")
 
+--for tmux
+keymap.set("n", "<leader>hh", ":!tmux select-pane -L<CR>")  -- Move to the left pane
+keymap.set("n", "<leader>hl", ":!tmux select-pane -R<CR>")  -- Move to the right pane
+keymap.set("n", "<leader>hj", ":!tmux select-pane -D<CR>")  -- Move down
+keymap.set("n", "<leader>hk", ":!tmux select-pane -U<CR>")  -- Move up
+
+
 --copilot keymaps
 -- Enable Copilot
 keymap.set("n", "<leader>ne", ":Copilot enable<CR>", opts) 
