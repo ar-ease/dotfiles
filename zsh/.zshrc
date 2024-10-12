@@ -127,10 +127,10 @@ alias p="pnpm"
 alias ga="git add ."
 alias gc='git commit -m '
 alias gs="git status"
-alias 1.= "cd .."
+
 alias 2.="cd ..."
 alias 3.="cd ...."
-alias 4.="cd ..."
+alias 4.="cd ....."
 alias code-test="~/Documents/Developer/test"
 alias code-learning="~/Documents/Developer/learnings"
 alias code-oops="~/Documents/Developer/learning/OOPS"
