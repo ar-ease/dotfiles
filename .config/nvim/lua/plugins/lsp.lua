@@ -9,7 +9,7 @@ return {
 				"shfmt",
 				"tailwindcss-language-server",
 				"typescript-language-server",
-				"css-lsp",
+				
 			})
 		end,
 	},
@@ -21,7 +21,7 @@ return {
 			inlay_hints = { enabled = true },
 			---@type lspconfig.options
 			servers = {
-				cssls = {},
+			--	cssls = {},
 				tailwindcss = {
 					root_dir = function(...)
 						return require("lspconfig.util").root_pattern(".git")(...)
@@ -57,7 +57,7 @@ return {
 						},
 					},
 				},
-				html = {},
+				--html = {},
 				lua_ls = {
 					-- enabled = false,
 					single_file_support = true,

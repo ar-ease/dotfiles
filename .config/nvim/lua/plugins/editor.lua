@@ -21,11 +21,12 @@ return {
 				function()
 					local builtin = require("telescope.builtin")
 					builtin.find_files({
-						no_ignore = false,
-						hidden = true,
+			no_ignore = true, -- This will ignore .gitignore, showing all files including .env
+            hidden = true,    -- Show hidden files, including dotfiles
+            file_ignore_patterns = { ".git/", "node_modules/", ".DS_Store" }, -- Other patterns to ignore	
 					})
 				end,
-				desc = "Lists files in your current working directory, respects .gitignore",
+				desc = "Lists files in your current working directory, ignores .gitignore",
 			},
 			{
 				";r",

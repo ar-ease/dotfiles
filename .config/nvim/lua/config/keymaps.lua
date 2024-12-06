@@ -1,11 +1,14 @@
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
-keymap.set("n", "x", '"_x')
 
+keymap.set("n", "x", '"_x')
+--autosave
+keymap.set("n", "<leader>na", ":ASToggle<CR>", opts)
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
+
 
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
@@ -40,6 +43,23 @@ keymap.set("n", "<C-S-h>", "<C-w><")
 keymap.set("n", "<C-S-l>", "<C-w>>")
 keymap.set("n", "<C-S-k>", "<C-w>+")
 keymap.set("n", "<C-S-j>", "<C-w>-")
+
+--for tmux
+keymap.set("n", "<leader>hh", ":!tmux select-pane -L<CR>")  -- Move to the left pane
+keymap.set("n", "<leader>hl", ":!tmux select-pane -R<CR>")  -- Move to the right pane
+keymap.set("n", "<leader>hj", ":!tmux select-pane -D<CR>")  -- Move down
+keymap.set("n", "<leader>hk", ":!tmux select-pane -U<CR>")  -- Move up
+
+
+--copilot keymaps
+-- Enable Copilot
+keymap.set("n", "<leader>ne", ":Copilot enable<CR>", opts) 
+
+-- Disable Copilot
+keymap.set("n", "<leader>nd", ":Copilot disable<CR>", opts) 
+
+-- Authenticate Copilot
+keymap.set("n", "<leader>ns", ":Copilot auth<CR>", opts)   
 
 -- Diagnostics
 keymap.set("n", "<C-j>", function()
