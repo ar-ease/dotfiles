@@ -132,12 +132,15 @@ alias 2.="cd ..."
 alias 3.="cd ...."
 alias 4.="cd ....."
 alias code-test="~/Documents/Developer/test"
-alias code-learning="~/Documents/Developer/learnings"
+alias code-developer="~/Documents/Developer/"
+alias code-blockchain="~/Documents/Developer/blockchain/"
+
+alias code-learning="~/Documents/Developer/learning"
 alias code-oops="~/Documents/Developer/learning/OOPS"
 alias code-dsa-test="~/Documents/Developer/DSA/Dsa-test"
 alias code-dsa="~/Documents/Developer/DSA/dsa-java"
 alias code-practice-dev="~/Documents/Developer/Devshit/Practice"
-alias code-Projects-dev="~/Documents/Developer/Devshit/Projects"
+alias code-projects-dev="~/Documents/Developer/Devshit/Projects"
 alias code-test-dev="~/Documents/Developer/Devshit/test"
 
 export PATH="/Users/ar-ease/.local/state/fnm_multishells/4748_1730478645757/bin":$PATH
@@ -155,3 +158,6 @@ rehash
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/ar-ease/.cache/lm-studio/bin"

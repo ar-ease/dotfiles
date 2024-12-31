@@ -12,7 +12,7 @@ return {
       editing_text = "Editing %s", -- Editing message format, %s will be the filename
       file_explorer_text = "Browsing %s", -- Message when browsing in file explorer (like netrw, nvim-tree, etc.)
       reading_text = "Reading %s", -- Message when in a read-only or preview mode
-      workspace_text = "Working in Something :)", -- Message when in a workspace (project) directory
+      workspace_text = "Working on Something :)", -- Message when in a workspace (project) directory
 
       -- Customize how long to wait before updating status (in seconds)
       debounce_timeout = 10,
