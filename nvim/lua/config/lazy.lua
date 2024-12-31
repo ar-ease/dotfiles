@@ -17,7 +17,7 @@ require("lazy").setup({
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
       opts = {
-        colorscheme = "sonokai",
+        colorscheme = "catppuccin",  -- Change from sonokai to catppuccin
         news = {
           lazyvim = true,
           neovim = true,
@@ -25,15 +25,23 @@ require("lazy").setup({
       },
     },
     { import = "lazyvim.plugins.extras.formatting.prettier" },
-  --  { import = "lazyvim.plugins.extras.lang.typescript" },
-
     { import = "lazyvim.plugins.extras.lang.java" },
-    -- { import = "lazyvim.plugins.extras.lang.json" },
-
     { import = "lazyvim.plugins.extras.lang.tailwind" },
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
     { import = "plugins" },
+
+    -- Add the catppuccin plugin to the setup
+    -- {
+    --   "catppuccin/nvim",
+    --   config = function()
+    --     require("catppuccin").setup({
+    --       flavour = "mocha", -- Options: latte, frappe, macchiato, mocha
+    --       transparent_background = true, -- To make the background transparent
+    --     })
+    --     vim.cmd.colorscheme("catppuccin") -- Set the colorscheme to catppuccin
+    --   end,
+    -- },
   },
   defaults = {
     lazy = false,
@@ -50,8 +58,6 @@ require("lazy").setup({
     rtp = {
       disabled_plugins = {
         "gzip",
-        -- "matchit",
-        -- "matchparen",
         "netrwPlugin",
         "rplugin",
         "tarPlugin",
