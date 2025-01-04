@@ -4,7 +4,7 @@ local opts = { noremap = true, silent = true }
 
 keymap.set("n", "x", '"_x')
 --autosave
-keymap.set("n", "<leader>na", ":ASToggle<CR>", opts)
+keymap.set("n", "<leader>ja", ":ASToggle<CR>", opts)
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
@@ -53,10 +53,10 @@ keymap.set("n", "<leader>hk", ":!tmux select-pane -U<CR>")  -- Move up
 
 --copilot keymaps
 -- Enable Copilot
-keymap.set("n", "<leader>ne", ":Copilot enable<CR>", opts) 
+keymap.set("n", "<leader>je", ":Copilot enable<CR>", opts) 
 
 -- Disable Copilot
-keymap.set("n", "<leader>nd", ":Copilot disable<CR>", opts) 
+keymap.set("n", "<leader>jd", ":Copilot disable<CR>", opts) 
 
 -- Authenticate Copilot
 keymap.set("n", "<leader>ns", ":Copilot auth<CR>", opts)   

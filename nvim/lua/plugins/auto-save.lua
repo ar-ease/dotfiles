@@ -4,7 +4,7 @@ return {
     cmd = "ASToggle", -- Optional lazy load on command
     event = { "InsertLeave", "TextChanged" }, -- Optional lazy load on these events
     opts = {
-      enabled = true, -- Enable auto-save when the plugin is loaded
+      enabled = false, -- Auto-save is disabled by default
       trigger_events = {
         immediate_save = { "BufLeave", "FocusLost" },
         defer_save = { "InsertLeave", "TextChanged" },
