@@ -112,7 +112,7 @@ return {
         --  Number = { fg = "#f36784" }, -- Orange numbers
        --   Operator = { fg = "#f78c6c" }, -- Orange operators
           Type = { fg = "#f2d17e" }, -- Orange types
-         -- ["@parameter"] = { fg = "#ff727e" }
+         ["@parameter"] = { fg = "#ff8d8d" }
 
           
         },
