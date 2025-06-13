@@ -112,8 +112,8 @@ return {
                 enable = false,
                 defaultConfig = {
                   indent_style = "space",
-                  indent_size = "2",
-                  continuation_indent_size = "2",
+                  indent_size = "3",
+                  continuation_indent_size = "3",
                 },
               },
             },
@@ -131,3 +131,4 @@ return {
     end,
   },
 }
+

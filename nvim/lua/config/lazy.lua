@@ -17,7 +17,7 @@ require("lazy").setup({
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
       opts = {
-        colorscheme = "catppuccin",  -- Change from sonokai to catppuccin
+        colorscheme = "catppuccin", -- Change from sonokai to catppuccin
         news = {
           lazyvim = true,
           neovim = true,
@@ -29,6 +29,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.tailwind" },
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
+    -- { import = "lazyvim.plugins.extras.ui.mini-animate"},
     { import = "plugins" },
 
     -- Add the catppuccin plugin to the setup

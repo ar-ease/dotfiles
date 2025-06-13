@@ -1,14 +1,12 @@
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
-
 keymap.set("n", "x", '"_x')
 --autosave
 keymap.set("n", "<leader>ja", ":ASToggle<CR>", opts)
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
-
 
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
@@ -31,7 +29,8 @@ keymap.set("n", "tw", ":tabclose<Return>", opts)
 -- Split window
 keymap.set("n", "ss", ":split<Return>", opts)
 keymap.set("n", "sv", ":vsplit<Return>", opts)
-
+keymap.set("n", "<leader>cr", [[:%s/\<<C-r><C-w>\>//gc<Left><Left><Left>]], { desc = "Global Rename with Confirm" })
+keymap.set("n", "<leader>cR", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { desc = "Global Rename without Confirm" })
 -- Move window
 keymap.set("n", "sh", "<C-w>h")
 keymap.set("n", "sk", "<C-w>k")
@@ -45,23 +44,22 @@ keymap.set("n", "<C-S-k>", "<C-w>+")
 keymap.set("n", "<C-S-j>", "<C-w>-")
 
 --for tmux
-keymap.set("n", "<leader>hh", ":!tmux select-pane -L<CR>")  -- Move to the left pane
-keymap.set("n", "<leader>hl", ":!tmux select-pane -R<CR>")  -- Move to the right pane
-keymap.set("n", "<leader>hj", ":!tmux select-pane -D<CR>")  -- Move down
-keymap.set("n", "<leader>hk", ":!tmux select-pane -U<CR>")  -- Move up
-
+keymap.set("n", "<leader>hh", ":!tmux select-pane -L<CR>") -- Move to the left pane
+keymap.set("n", "<leader>hl", ":!tmux select-pane -R<CR>") -- Move to the right pane
+keymap.set("n", "<leader>hj", ":!tmux select-pane -D<CR>") -- Move down
+keymap.set("n", "<leader>hk", ":!tmux select-pane -U<CR>") -- Move up
 
 --copilot keymaps
 -- Enable Copilot
-keymap.set("n", "<leader>je", ":Copilot enable<CR>", opts) 
+keymap.set("n", "<leader>je", ":Copilot enable<CR>", opts)
 
 -- Disable Copilot
-keymap.set("n", "<leader>jd", ":Copilot disable<CR>", opts) 
+keymap.set("n", "<leader>jd", ":Copilot disable<CR>", opts)
 
 -- Authenticate Copilot
-keymap.set("n", "<leader>ns", ":Copilot auth<CR>", opts)   
+keymap.set("n", "<leader>ns", ":Copilot auth<CR>", opts)
 
 -- Diagnostics
 keymap.set("n", "<C-j>", function()
-	vim.diagnostic.goto_next()
+  vim.diagnostic.goto_next()
 end, opts)

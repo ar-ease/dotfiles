@@ -1,9 +1,11 @@
 return {
   "max397574/better-escape.nvim",
+  event = "InsertCharPre",
   opts = {
-    mapping = { "jk" }, -- you can also use "jj" or other combos
-    timeout = 300, -- time in ms to wait for escape sequence
-    clear_empty_lines = false,
-    keys = "<Esc>", -- keys to send after escape
+    timeout = 300,
+    mapping = { "jk" }, -- you can add more sequences like "jj"
+    keys = function()
+      return vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
+    end,
   },
 }
