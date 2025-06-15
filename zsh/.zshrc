@@ -132,17 +132,15 @@ alias 1.="cd .."
 alias 2.="cd ..."
 alias 3.="cd ...."
 alias 4.="cd ....."
-alias code-test="~/Documents/Developer/test"
-alias code-developer="~/Documents/Developer/"
-alias code-blockchain="~/Documents/Developer/blockchain/"
 
-alias code-learning="~/Documents/Developer/learning"
-alias code-oops="~/Documents/Developer/learning/OOPS"
-alias code-dsa-test="~/Documents/Developer/DSA/Dsa-test"
-alias code-dsa="~/Documents/Developer/DSA/dsa-java"
-alias code-practice-dev="~/Documents/Developer/Devshit/Practice"
-alias code-projects-dev="~/Documents/Developer/Devshit/Projects"
-alias code-test-dev="~/Documents/Developer/Devshit/test"
+alias code-test="~/Developer/test"
+alias code-developer="~/Developer/"
+
+alias code-learning="~/Developer/learning"
+alias code-dsa="~/Developer/DSA/dsa-java"
+alias code-practice="~/Developer/Practice"
+alias code-projects="~/Developer/Projects"
+alias code-new="~/Developer/test"
 
 export PATH="/Users/ar-ease/.local/state/fnm_multishells/4748_1730478645757/bin":$PATH
 export FNM_MULTISHELL_PATH="/Users/ar-ease/.local/state/fnm_multishells/4748_1730478645757"
@@ -162,3 +160,5 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/ar-ease/.cache/lm-studio/bin"
+export PATH="/opt/homebrew/bin/go:$PATH"
+export PATH="$(go env GOPATH)/bin:$PATH"

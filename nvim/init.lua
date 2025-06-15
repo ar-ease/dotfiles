@@ -1,25 +1,29 @@
--- Add the directory containing the util.debug module to the Lua package path
-package.path = package.path .. ";/path/to/your/module/?.lua"
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
+vim.opt.rtp:prepend(lazypath)
 
--- Check if the vim.loader is available
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+-- Enable faster lua loader
 if vim.loader then
   vim.loader.enable()
 end
 
--- Create a global function to wrap the util.debug.dump function
-_G.dd = function(...)
-  require("util.debug").dump(...)
-end
-
--- Override the vim.print function with the _G.dd function
-vim.print = _G.dd
-
--- Load the configuration from the config.lazy module
+-- Setup lazy.nvim
 require("config.lazy")
-
--- Commented out the autocmd section, as it's not directly related to the issue
--- vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
---   pattern = { "*" },
---   command = "silent! wall",
---   nested = true,
--- })
