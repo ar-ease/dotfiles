@@ -18,17 +18,42 @@ return {
       "nvim-telescope/telescope-file-browser.nvim",
     },
     keys = {
+      -- Regular search (filtered, clean)
       {
         ";f",
         function()
           local builtin = require("telescope.builtin")
           builtin.find_files({
-            no_ignore = false,
-            hidden = true,
-            file_ignore_patterns = { ".git/", "node_modules/", ".DS_Store" },
+            no_ignore = true, -- Respects .gitignore
+            hidden = true, -- Shows config files like .eslintrc
+            file_ignore_patterns = {
+              "node_modules/",
+              ".git/",
+              ".DS_Store",
+              "dist/",
+              "build/",
+              "coverage/",
+              ".next/",
+              ".cache/",
+              "*.log",
+            },
           })
         end,
-        desc = "Find files",
+        desc = "Find files (filtered)",
+      },
+
+      -- Deep search (everything, for debugging)
+      {
+        ";F",
+        function()
+          local builtin = require("telescope.builtin")
+          builtin.find_files({
+            no_ignore = true, -- Shows .gitignore files
+            hidden = true,
+            file_ignore_patterns = { ".git/" }, -- Only ignore git internals
+          })
+        end,
+        desc = "Find ALL files (debugging)",
       },
       {
         ";r",
