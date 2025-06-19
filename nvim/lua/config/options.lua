@@ -1,11 +1,8 @@
 vim.g.mapleader = " "
-
 vim.scriptencoding = "utf-8"
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
-
 vim.opt.number = true
-
 vim.opt.title = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
@@ -30,6 +27,16 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.splitkeep = "cursor"
 vim.opt.mouse = ""
+
+-- File persistence and recovery
+vim.opt.swapfile = false
+vim.opt.writebackup = false
+vim.opt.undofile = true
+vim.opt.undolevels = 1000
+vim.opt.updatetime = 250
+
+-- Enable auto-formatting on save (LazyVim style)
+vim.g.autoformat = true
 
 -- Add asterisks in block comments
 vim.opt.formatoptions:append({ "r" })

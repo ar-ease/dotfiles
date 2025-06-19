@@ -141,6 +141,7 @@ alias code-dsa="~/Developer/DSA/dsa-java"
 alias code-practice="~/Developer/Practice"
 alias code-projects="~/Developer/Projects"
 alias code-new="~/Developer/test"
+alias obsidian-vault="cd '/Users/ar-ease/Library/Mobile Documents/iCloud~md~obsidian/Documents/Main Vault'"
 
 export PATH="/Users/ar-ease/.local/state/fnm_multishells/4748_1730478645757/bin":$PATH
 export FNM_MULTISHELL_PATH="/Users/ar-ease/.local/state/fnm_multishells/4748_1730478645757"

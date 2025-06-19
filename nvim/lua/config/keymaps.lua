@@ -2,6 +2,7 @@ local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
 keymap.set("n", "x", '"_x')
+
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
@@ -29,6 +30,7 @@ keymap.set("n", "ss", ":split<Return>", opts)
 keymap.set("n", "sv", ":vsplit<Return>", opts)
 keymap.set("n", "<leader>jr", [[:%s/\<<C-r><C-w>\>//gc<Left><Left><Left>]], { desc = "Global Rename with Confirm" })
 keymap.set("n", "<leader>jR", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { desc = "Global Rename without Confirm" })
+
 -- Move window
 keymap.set("n", "sh", "<C-w>h")
 keymap.set("n", "sk", "<C-w>k")
@@ -41,16 +43,25 @@ keymap.set("n", "<C-S-l>", "<C-w>>")
 keymap.set("n", "<C-S-k>", "<C-w>+")
 keymap.set("n", "<C-S-j>", "<C-w>-")
 
---for tmux
-keymap.set("n", "<leader>hh", ":!tmux select-pane -L<CR>") -- Move to the left pane
-keymap.set("n", "<leader>hl", ":!tmux select-pane -R<CR>") -- Move to the right pane
-keymap.set("n", "<leader>hj", ":!tmux select-pane -D<CR>") -- Move down
-keymap.set("n", "<leader>hk", ":!tmux select-pane -U<CR>") -- Move up
+-- Tmux Navigator (seamless navigation between tmux and nvim)
+-- Note: Ctrl+H, Ctrl+J, Ctrl+K, Ctrl+L will work automatically via the tmux-navigator plugin
+-- No manual tmux commands needed anymore
+
+-- Undolist
+keymap.set("n", "<leader>ux", ":undolist<CR>", { desc = "Show undo list" })
+keymap.set("n", "<leader>u2", ":earlier 1m<CR>", { desc = "Back 1 minute" })
+keymap.set("n", "<leader>u6", ":earlier 5m<CR>", { desc = "Back 5 minutes" })
 
 -- Authenticate Copilot
 keymap.set("n", "<leader>ns", ":Copilot auth<CR>", opts)
 
--- Diagnostics
-keymap.set("n", "<C-j>", function()
-  vim.diagnostic.goto_next()
-end, opts)
+-- Diagnostics (updated syntax for newer Neovim)
+keymap.set("n", "<leader>dj", function()
+  vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = "Next diagnostic" })
+keymap.set("n", "<leader>dk", function()
+  vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = "Previous diagnostic" })
+keymap.set("n", "<leader>dd", function()
+  vim.diagnostic.open_float()
+end, { desc = "Show diagnostic" })

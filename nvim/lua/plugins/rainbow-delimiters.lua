@@ -1,7 +1,6 @@
--- ~/.config/nvim/lua/plugins/rainbow-delimiters.lua
 return {
   "HiPhish/rainbow-delimiters.nvim",
-  event = "VeryLazy",
+  event = { "BufReadPost", "BufNewFile" },
   config = function()
     local rainbow_delimiters = require("rainbow-delimiters")
 
@@ -13,6 +12,13 @@ return {
       query = {
         [""] = "rainbow-delimiters",
         lua = "rainbow-blocks",
+        javascript = "rainbow-delimiters",
+        typescript = "rainbow-delimiters",
+        python = "rainbow-delimiters",
+        c = "rainbow-delimiters",
+        cpp = "rainbow-delimiters",
+        rust = "rainbow-delimiters",
+        go = "rainbow-delimiters",
       },
       highlight = {
         "RainbowDelimiterRed",

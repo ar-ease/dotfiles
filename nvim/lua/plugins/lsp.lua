@@ -1,3 +1,4 @@
+-- Comprehensive LSP Configuration
 return {
   -- Mason tool installer
   {
@@ -5,15 +6,20 @@ return {
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
+        -- Language Servers
         "lua-language-server",
         "typescript-language-server",
-        "pyright", -- Python (already exists)
-        "rust-analyzer", -- Rust LSP
-        "gopls", -- Go LSP
-        "prisma-language-server", -- Prisma LSP
+        "tailwindcss-language-server",
+        "pyright",
+        "rust-analyzer",
+        "gopls",
+        "prisma-language-server",
         "json-lsp",
         "yaml-language-server",
-        "tailwindcss-language-server", -- Tailwind (already exists)
+        "css-lsp",
+        "html-lsp",
+
+        -- Formatters & Linters
         "prettier",
         "luacheck",
         "shellcheck",
@@ -25,11 +31,24 @@ return {
   -- LSP Configuration
   {
     "neovim/nvim-lspconfig",
+    keys = {
+      {
+        "<leader>jh",
+        function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+          local status = vim.lsp.inlay_hint.is_enabled() and "enabled" or "disabled"
+          local icon = vim.lsp.inlay_hint.is_enabled() and "󰻃 " or "󰻄 "
+          LazyVim.info(icon .. "Inlay hints " .. status, { title = "LSP" })
+        end,
+        desc = "Toggle Inlay Hints",
+      },
+    },
     opts = {
-      inlay_hints = { enabled = true },
+      inlay_hints = { enabled = false },
       servers = {
-        -- Lua Language Server
+        -- Lua
         lua_ls = {
+          single_file_support = true,
           settings = {
             Lua = {
               workspace = {
@@ -39,10 +58,6 @@ return {
                 workspaceWord = true,
                 callSnippet = "Both",
               },
-              diagnostics = {
-                globals = { "vim" },
-                disable = { "incomplete-signature-doc", "trailing-space" },
-              },
               hint = {
                 enable = true,
                 setType = false,
@@ -50,6 +65,15 @@ return {
                 paramName = "Disable",
                 semicolon = "Disable",
                 arrayIndex = "Disable",
+              },
+              diagnostics = {
+                globals = { "vim" },
+                disable = { "incomplete-signature-doc", "trailing-space" },
+                groupSeverity = {
+                  strong = "Warning",
+                  strict = "Warning",
+                },
+                unusedLocalExclude = { "_*" },
               },
               format = {
                 enable = false,
@@ -63,12 +87,13 @@ return {
           },
         },
 
-        -- TypeScript Server
+        -- TypeScript/JavaScript
         tsserver = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
           end,
           single_file_support = false,
+          filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
           settings = {
             typescript = {
               inlayHints = {
@@ -79,6 +104,9 @@ return {
                 includeInlayPropertyDeclarationTypeHints = true,
                 includeInlayFunctionLikeReturnTypeHints = true,
                 includeInlayEnumMemberValueHints = true,
+              },
+              preferences = {
+                includePackageJsonAutoImports = "on",
               },
             },
             javascript = {
@@ -95,15 +123,27 @@ return {
           },
         },
 
-        -- Tailwind CSS (already exists)
+        -- Web Technologies
         tailwindcss = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
           end,
         },
+        cssls = {},
+        html = {},
 
-        -- Python (already exists)
-        pyright = {},
+        -- Python
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = "basic",
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+              },
+            },
+          },
+        },
 
         -- Rust
         rust_analyzer = {
@@ -132,24 +172,12 @@ return {
           },
         },
 
-        -- Prisma
+        -- Database & Config
         prismals = {},
-
-        -- JSON (already exists)
         jsonls = {},
-
-        -- YAML (already exists)
         yamlls = {},
       },
+      setup = {},
     },
-  },
-
-  -- Completion
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
-    opts = function(_, opts)
-      table.insert(opts.sources, { name = "emoji" })
-    end,
   },
 }
