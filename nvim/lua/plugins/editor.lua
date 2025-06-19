@@ -125,7 +125,7 @@ return {
         layout_strategy = "horizontal",
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
-        winblend = 1,
+        winblend = 0, -- Changed from 1 to 0 for better transparency
         mappings = {
           n = {},
         },
@@ -179,7 +179,13 @@ return {
     priority = 1001,
     opts = {
       flavour = "mocha",
-      transparent_background = false,
+      transparent_background = true, -- Changed to true to match your colorscheme
+      integrations = {
+        telescope = {
+          enabled = true,
+          style = "nvchad",
+        },
+      },
     },
   },
 }
