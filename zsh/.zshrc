@@ -140,7 +140,7 @@ alias code-learning="~/Developer/learning"
 alias code-dsa="~/Developer/DSA/dsa-java"
 alias code-practice="~/Developer/Practice"
 alias code-projects="~/Developer/Projects"
-alias code-new="~/Developer/test"
+alias code-new="~/Developer/new-tech-test/"
 alias obsidian-vault="cd '/Users/ar-ease/Library/Mobile Documents/iCloud~md~obsidian/Documents/Main Vault'"
 
 export PATH="/Users/ar-ease/.local/state/fnm_multishells/4748_1730478645757/bin":$PATH
@@ -163,3 +163,7 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="$PATH:/Users/ar-ease/.cache/lm-studio/bin"
 export PATH="/opt/homebrew/bin/go:$PATH"
 export PATH="$(go env GOPATH)/bin:$PATH"
+
+
+
+PATH=~/.console-ninja/.bin:$PATH
