@@ -18,6 +18,49 @@ vim.opt.sidescrolloff = 8
 vim.opt.clipboard = "unnamedplus"
 
 -- ===========================
+-- PLUGIN SETUP (Surround)
+-- ===========================
+-- Bootstrap lazy.nvim if not already present
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- Setup plugins
+require("lazy").setup({
+	{
+		"kylechui/nvim-surround",
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({
+				keymaps = {
+					insert = "<C-g>s",
+					insert_line = "<C-g>S",
+					normal = "ys",
+					normal_cur = "yss",
+					normal_line = "yS",
+					normal_cur_line = "ySS",
+					visual = "S",
+					visual_line = "gS",
+					delete = "ds",
+					change = "cs",
+					change_line = "cS",
+				},
+			})
+		end,
+	},
+})
+
+-- ===========================
 -- HELPER FUNCTIONS
 -- ===========================
 local keymap = vim.keymap
@@ -109,6 +152,34 @@ keymap.set("n", "<C-k>", '<Cmd>call VSCodeNotify("workbench.action.navigateUp")<
 keymap.set("n", "<C-l>", '<Cmd>call VSCodeNotify("workbench.action.navigateRight")<CR>', { desc = "Navigate right" })
 
 -- ===========================
+-- SURROUND KEYBINDS (Added)
+-- ===========================
+
+-- Surround operations (nvim-surround plugin handles most of this automatically)
+-- These are the default keybinds that will work:
+-- ys{motion}{char} - Add surround around motion (e.g., ysiw" to surround inner word with quotes)
+-- yss{char} - Add surround around entire line (e.g., yss) to surround line with parentheses)
+-- ds{char} - Delete surround (e.g., ds" to delete surrounding quotes)
+-- cs{old}{new} - Change surround (e.g., cs"' to change quotes to single quotes)
+-- S{char} - Add surround in visual mode
+
+-- Quick surround shortcuts for common cases
+keymap.set("n", "<leader>sq", 'ysiw"', { desc = "Surround word with quotes" })
+keymap.set("n", "<leader>s'", "ysiw'", { desc = "Surround word with single quotes" })
+keymap.set("n", "<leader>s(", "ysiw)", { desc = "Surround word with parentheses" })
+keymap.set("n", "<leader>s[", "ysiw]", { desc = "Surround word with brackets" })
+keymap.set("n", "<leader>s{", "ysiw}", { desc = "Surround word with braces" })
+keymap.set("n", "<leader>s<", "ysiw>", { desc = "Surround word with angle brackets" })
+
+-- Visual mode surround shortcuts
+keymap.set("v", "<leader>q", 'S"', { desc = "Surround selection with quotes" })
+keymap.set("v", "<leader>'", "S'", { desc = "Surround selection with single quotes" })
+keymap.set("v", "<leader>(", "S)", { desc = "Surround selection with parentheses" })
+keymap.set("v", "<leader>[", "S]", { desc = "Surround selection with brackets" })
+keymap.set("v", "<leader>{", "S}", { desc = "Surround selection with braces" })
+keymap.set("v", "<leader><", "S>", { desc = "Surround selection with angle brackets" })
+
+-- ===========================
 -- ESSENTIAL ADDITIONS
 -- ===========================
 
@@ -116,94 +187,4 @@ keymap.set("n", "<C-l>", '<Cmd>call VSCodeNotify("workbench.action.navigateRight
 keymap.set("i", "jj", "<Esc>", { desc = "Exit insert mode with jj" })
 keymap.set("i", "jk", "<Esc>", { desc = "Exit insert mode with jk" })
 
--- Clear search highlighting
-keymap.set("n", "<Esc>", "<Cmd>nohlsearch<CR>", { desc = "Clear search highlighting" })
-
--- Better indenting (maintains selection)
-keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
-keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
-
--- Move lines up/down in visual mode
-keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
-keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
-
--- ===========================
--- VS CODE SPECIFIC SHORTCUTS
--- ===========================
-
--- Command palette
-keymap.set(
-	"n",
-	"<leader>p",
-	'<Cmd>call VSCodeNotify("workbench.action.showCommands")<CR>',
-	{ desc = "Command Palette" }
-)
-
--- Format document
-keymap.set(
-	"n",
-	"<leader>lf",
-	'<Cmd>call VSCodeNotify("editor.action.formatDocument")<CR>',
-	{ desc = "Format Document" }
-)
-
--- Rename symbol
-keymap.set("n", "<leader>lr", '<Cmd>call VSCodeNotify("editor.action.rename")<CR>', { desc = "Rename Symbol" })
-
--- Go to definition
-keymap.set("n", "gd", '<Cmd>call VSCodeNotify("editor.action.revealDefinition")<CR>', { desc = "Go to Definition" })
-
--- Go to references
-keymap.set("n", "gr", '<Cmd>call VSCodeNotify("editor.action.goToReferences")<CR>', { desc = "Go to References" })
-
--- Terminal operations
-keymap.set(
-	"n",
-	"<C-`>",
-	'<Cmd>call VSCodeNotify("workbench.action.terminal.toggleTerminal")<CR>',
-	{ desc = "Toggle Terminal" }
-)
-keymap.set(
-	"n",
-	"<leader>tt",
-	'<Cmd>call VSCodeNotify("workbench.action.terminal.focus")<CR>',
-	{ desc = "Focus Terminal" }
-)
-
--- Git operations
-keymap.set("n", "<leader>gg", '<Cmd>call VSCodeNotify("workbench.view.scm")<CR>', { desc = "Source Control" })
-keymap.set("n", "<leader>gb", '<Cmd>call VSCodeNotify("gitlens.toggleFileBlame")<CR>', { desc = "Toggle Git Blame" })
-
--- Quick navigation shortcuts
-keymap.set("n", "<leader>h", '<Cmd>call VSCodeNotify("workbench.view.explorer")<CR>', { desc = "Focus Explorer" })
-keymap.set(
-	"n",
-	"<leader>j",
-	'<Cmd>call VSCodeNotify("workbench.action.terminal.focus")<CR>',
-	{ desc = "Focus Terminal" }
-)
-keymap.set(
-	"n",
-	"<leader>k",
-	'<Cmd>call VSCodeNotify("workbench.action.showCommands")<CR>',
-	{ desc = "Command Palette" }
-)
-keymap.set(
-	"n",
-	"<leader>l",
-	'<Cmd>call VSCodeNotify("workbench.action.focusActiveEditorGroup")<CR>',
-	{ desc = "Focus Editor" }
-)
-
--- ===========================
--- AUTO-COMMANDS
--- ===========================
-
--- Highlight yanked text
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight yanked text briefly",
-	group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank({ timeout = 200 })
-	end,
-})
+-- Clear search

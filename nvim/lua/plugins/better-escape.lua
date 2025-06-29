@@ -3,8 +3,13 @@ return {
   event = "InsertEnter",
   opts = {
     timeout = 300,
-    mapping = { "jk" },
-    keys = "<Esc>",
-    clear_empty_lines = false, -- Added missing option
+    default_mappings = false,
+    mappings = {
+      i = {
+        j = {
+          k = "<Esc>",
+        },
+      },
+    },
   },
 }
