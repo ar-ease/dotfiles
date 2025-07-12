@@ -3,6 +3,14 @@ local opts = { noremap = true, silent = true }
 
 keymap.set("n", "x", '"_x')
 
+-- Insert-mode undo breakpoints
+keymap.set("i", ",", ",<C-g>u", opts)
+keymap.set("i", ".", ".<C-g>u", opts)
+keymap.set("i", "!", "!<C-g>u", opts)
+keymap.set("i", "?", "?<C-g>u", opts)
+keymap.set("i", " ", " <C-g>u", opts)
+keymap.set("i", "<CR>", "<CR><C-g>u", opts)
+
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
@@ -37,11 +45,15 @@ keymap.set("n", "sk", "<C-w>k")
 keymap.set("n", "sj", "<C-w>j")
 keymap.set("n", "sl", "<C-w>l")
 
--- Resize window
-keymap.set("n", "<C-S-h>", "<C-w><")
-keymap.set("n", "<C-S-l>", "<C-w>>")
-keymap.set("n", "<C-S-k>", "<C-w>+")
-keymap.set("n", "<C-S-j>", "<C-w>-")
+-- Resize
+vim.keymap.set("n", "<A-h>", ":vertical resize -2<CR>", opts)
+vim.keymap.set("n", "<A-l>", ":vertical resize +2<CR>", opts)
+vim.keymap.set("n", "<A-j>", ":resize -2<CR>", opts)
+vim.keymap.set("n", "<A-k>", ":resize +2<CR>", opts)
+-- keymap.set("n", "<C-S-h>", "<C-w><")
+-- keymap.set("n", "<C-S-l>", "<C-w>>")
+-- keymap.set("n", "<C-S-k>", "<C-w>+")
+-- keymap.set("n", "<C-S-j>", "<C-w>-")
 
 -- Tmux Navigator (seamless navigation between tmux and nvim)
 -- Note: Ctrl+H, Ctrl+J, Ctrl+K, Ctrl+L will work automatically via the tmux-navigator plugin

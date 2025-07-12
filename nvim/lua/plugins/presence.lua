@@ -4,10 +4,10 @@ return {
   config = function()
     require("presence"):setup({
       -- General options
-      auto_update = true,  -- Update activity based on changes in Neovim
+      auto_update = true, -- Update activity based on changes in Neovim
       neovim_image_text = "Editing with Neovim", -- Text displayed under your Discord profile
-      main_image = "neovim",  -- Main image to be displayed ("neovim", "file", or custom image)
-      
+      main_image = "neovim", -- Main image to be displayed ("neovim", "file", or custom image)
+
       -- Rich Presence text options
       editing_text = "Editing %s", -- Editing message format, %s will be the filename
       file_explorer_text = "Browsing %s", -- Message when browsing in file explorer (like netrw, nvim-tree, etc.)
