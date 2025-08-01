@@ -1,0 +1,9 @@
+# Ignore everything
+*
+
+# But do not ignore these directories
+!nvim/
+!vscode-nvim/
+!tmux/
+!opencode/
+!zsh/
