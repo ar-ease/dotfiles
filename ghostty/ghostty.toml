@@ -1,0 +1,75 @@
+
+
+#background = #1C1E26
+#background = #181818
+
+
+#background = #1E1E1E
+background = #0F0F0F
+
+background-opacity = .92
+background-blur-radius = 90
+font-family = "FiraCode Nerd Font"
+font-size = 15
+font-feature = "+calt +liga +dlig"
+
+
+keybind = ctrl+i=text:\x1b[73;5u
+
+
+# ───── Cursor ─────
+cursor-style = "block"
+cursor-style-blink = false
+cursor-invert-fg-bg = true
+# ───── macOS Specific ─────
+macos-titlebar-style = "transparent"
+macos-option-as-alt = true
+# ───── Behavior ─────
+mouse-hide-while-typing = true
+confirm-close-surface = false
+copy-on-select = "clipboard"
+working-directory = "inherit"
+scrollback-limit = 10000
+# ───── Window ─────
+window-decoration = true
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
+window-save-state = "always"
+window-new-tab-position = "current"
+# ───── Updates ─────
+auto-update = "check"
+auto-update-channel = "stable"
+# ───── Shell Integration ─────
+#shell-integration-features = "cursor,sudo,title"
+# ───── Keybindings ─────
+# Core actions
+keybind = "super+i=inspector:toggle"
+keybind = "super+b>r=reload_config"
+keybind = "super+b>x=close_surface"
+keybind = "super+b>c=new_tab"
+keybind = "super+b>n=new_window"
+# Tab switching
+keybind = "super+b>1=goto_tab:1"
+keybind = "super+b>2=goto_tab:2"
+keybind = "super+b>3=goto_tab:3"
+keybind = "super+b>4=goto_tab:4"
+keybind = "super+b>5=goto_tab:5"
+keybind = "super+b>6=goto_tab:6"
+keybind = "super+b>7=goto_tab:7"
+keybind = "super+b>8=goto_tab:8"
+keybind = "super+b>9=goto_tab:9"
+# Splits
+keybind = "super+b>backslash=new_split:right"
+keybind = "super+b>minus=new_split:down"
+keybind = "super+b>e=equalize_splits"
+# Split navigation (using super only)
+keybind = "super+h=goto_split:left"
+keybind = "super+j=goto_split:down"
+keybind = "super+k=goto_split:up"
+keybind = "super+l=goto_split:right"
+# Optional: Global overrides (useful if macOS captures Cmd+hjkl)
+keybind = "global:super+shift+h=goto_split:left"
+keybind = "global:super+shift+j=goto_split:down"
+keybind = "global:super+shift+k=goto_split:up"
+keybind = "global:super+shift+l=goto_split:right"
