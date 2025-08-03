@@ -44,10 +44,6 @@ return {
             -- Spell checking (often confused with unused code)
             SpellBad = { fg = "#f87171", style = { "undercurl" } },
             SpellCap = { fg = "#fbbf24", style = { "undercurl" } },
-            -- Additional useful highlights
-            -- ["@variable.builtin"] = { fg = colors.red, style = { "italic" } },
-            -- ["@constant.builtin"] = { fg = colors.peach },
-            -- ["@type.builtin"] = { fg = colors.yellow, style = { "italic" } },
           }
         end,
       })
