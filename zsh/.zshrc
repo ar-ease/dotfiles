@@ -166,7 +166,7 @@ export PATH="$(go env GOPATH)/bin:$PATH"
 
 
 
-PATH=~/.console-ninja/.bin:$PATH
+
 . "$HOME/.local/bin/env"
 
 # Added by Windsurf

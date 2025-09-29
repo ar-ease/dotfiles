@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 return {
   -- Configure LazyVim to load the catppuccin colorscheme
   {
@@ -218,7 +219,6 @@ return {
       integrations = {
         telescope = {
           enabled = true,
-          style = "nvchad",
         },
       },
     },

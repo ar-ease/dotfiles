@@ -12,7 +12,7 @@ return {
         styles = {
           comments = { "italic" }, -- Italicize comments
           functions = { "bold" }, -- Bold functions
-          keywords = { "italic" }, -- Italicize keywords
+          -- keywords = { "italic" }, -- Italicize keywords
           strings = {}, -- Add any style to strings here
           variables = {}, -- Add any style to variables here
         },
@@ -24,6 +24,7 @@ return {
             -- Regular code highlighting (your existing setup)
             Function = { fg = "#82aaff", style = { "bold" } },
             Keyword = { fg = "#d677f2" },
+            --String = { fg = "#99FDE4" },
             String = { fg = "#f5e0dc" },
             -- String = { fg = "#e5c07b" },
             Variable = { fg = "#d19a66" },

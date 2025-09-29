@@ -1,5 +1,9 @@
+---@diagnostic disable: undefined-global
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
+
+-- Ensure Shift+; (:) always opens the command-line
+keymap.set({ "n", "v" }, ":", ":", { noremap = true, silent = false })
 
 keymap.set("n", "x", '"_x')
 keymap.set("n", "H", "<cmd>normal! H<cr>", opts)
