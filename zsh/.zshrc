@@ -117,6 +117,7 @@ source $ZSH/oh-my-zsh.sh
 
 
 alias c="clear"
+alias cls="clear"
 alias e="exit"
 
 alias n="nvim"
@@ -136,12 +137,17 @@ alias 4.="cd ....."
 alias code-test="~/Developer/test"
 alias code-developer="~/Developer/"
 
+
+alias code-course="~/Developer/course-learning/"
 alias code-learning="~/Developer/learning"
 alias code-dsa="~/Developer/DSA/dsa-java"
 alias code-practice="~/Developer/Practice"
 alias code-projects="~/Developer/Projects"
 alias code-new="~/Developer/new-tech-test/"
 alias obsidian-vault="cd '/Users/ar-ease/Library/Mobile Documents/iCloud~md~obsidian/Documents/Main Vault'"
+
+alias jstest="~/Developer/test/jstest"
+alias expresstest="~/Developer/test/expresstest"
 
 export PATH="/Users/ar-ease/.local/state/fnm_multishells/4748_1730478645757/bin":$PATH
 export FNM_MULTISHELL_PATH="/Users/ar-ease/.local/state/fnm_multishells/4748_1730478645757"
@@ -171,3 +177,18 @@ export PATH="$(go env GOPATH)/bin:$PATH"
 
 # Added by Windsurf
 export PATH="/Users/ar-ease/.codeium/windsurf/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/ar-ease/.antigravity/antigravity/bin:$PATH"
+
+# bun completions
+[ -s "/Users/ar-ease/.bun/_bun" ] && source "/Users/ar-ease/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+alias claude-mem='/Users/ar-ease/.bun/bin/bun "/Users/ar-ease/.claude/plugins/cache/thedotmack/claude-mem/10.5.5/scripts/worker-service.cjs"'
+
+# Added by Antigravity IDE
+export PATH="/Users/ar-ease/.antigravity-ide/antigravity-ide/bin:$PATH"

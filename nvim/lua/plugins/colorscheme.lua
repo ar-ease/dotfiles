@@ -24,8 +24,8 @@ return {
             -- Regular code highlighting (your existing setup)
             Function = { fg = "#82aaff", style = { "bold" } },
             Keyword = { fg = "#d677f2" },
-            --String = { fg = "#99FDE4" },
-            String = { fg = "#f5e0dc" },
+            String = { fg = "#99FDE4" },
+            -- String = { fg = "#f5e0dc" },
             -- String = { fg = "#e5c07b" },
             Variable = { fg = "#d19a66" },
             Identifier = { fg = "#82aaff" },

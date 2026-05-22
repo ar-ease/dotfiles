@@ -1,3 +1,7 @@
+--------------------------------------------------
+-- VSCode Neovim Setup
+--------------------------------------------------
+
 vim.g.vscode = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -11,23 +15,117 @@ vim.opt.sidescrolloff = 8
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
-if vim.g.vscode then
-	-- undo/REDO via vscode
-	vim.keymap.set("n", "u", "<Cmd>call VSCodeNotify('undo')<CR>")
-	vim.keymap.set("n", "<C-r>", "<Cmd>call VSCodeNotify('redo')<CR>")
+--------------------------------------------------
+-- Lazy.nvim bootstrap
+--------------------------------------------------
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
 
-vim.keymap.set("n", "'", ";")
+--------------------------------------------------
+-- Plugins
+--------------------------------------------------
 
-keymap.set("i", "<CR>", "<CR><C-g>u", { noremap = true, expr = false })
--- Preserve default f and s commands
-keymap.set("n", "f", "f", { noremap = true })
-keymap.set("n", "s", "s", { noremap = true })
+require("lazy").setup({
+	{
+		"kylechui/nvim-surround",
+		version = "*",
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	},
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = function()
+			require("nvim-autopairs").setup({
+				check_ts = false,
+			})
+		end,
+	},
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		opts = {},
+		keys = {
+			{
+				"s",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").jump()
+				end,
+			},
+			{
+				"S",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").treesitter()
+				end,
+			},
+		},
+	},
+	{
+		"echasnovski/mini.ai",
+		version = "*",
+		config = function()
+			require("mini.ai").setup()
+		end,
+	},
+})
 
+--------------------------------------------------
+-- Basic Keymaps
+--------------------------------------------------
+
+keymap.set("n", "'", ";")
+keymap.set("i", "<CR>", "<CR><C-g>u", { noremap = true })
 keymap.set("n", "x", '"_x', opts)
 keymap.set("n", "+", "<C-a>", opts)
 keymap.set("n", "-", "<C-x>", opts)
 keymap.set("n", "<C-a>", "gg<S-v>G", opts)
+
+-- Fold-aware j/k: plain j/k use VSCode's cursor commands so folded regions
+-- don't auto-unfold when moving across them. Counted motions (5j, 10k)
+-- still use native vim movement so counts keep working.
+keymap.set("n", "j", function()
+	if vim.v.count == 0 then
+		vim.fn.VSCodeNotify("cursorDown")
+	else
+		vim.cmd("normal! " .. vim.v.count .. "j")
+	end
+end, opts)
+
+keymap.set("n", "k", function()
+	if vim.v.count == 0 then
+		vim.fn.VSCodeNotify("cursorUp")
+	else
+		vim.cmd("normal! " .. vim.v.count .. "k")
+	end
+end, opts)
+
+--------------------------------------------------
+-- VSCode Navigation (FIXED)
+--------------------------------------------------
+
+keymap.set("n", "<C-o>", '<Cmd>call VSCodeNotify("workbench.action.navigateBack")<CR>', opts)
+keymap.set("n", "<C-i>", '<Cmd>call VSCodeNotify("workbench.action.navigateForward")<CR>', opts)
+
+-- Optional safe fallback
+keymap.set("n", "<leader>o", '<Cmd>call VSCodeNotify("workbench.action.navigateBack")<CR>', opts)
+keymap.set("n", "<leader>i", '<Cmd>call VSCodeNotify("workbench.action.navigateForward")<CR>', opts)
+
+--------------------------------------------------
+-- VSCode Actions
+--------------------------------------------------
 
 keymap.set("n", "<Leader>w", '<Cmd>call VSCodeNotify("workbench.action.files.save")<CR>', opts)
 keymap.set("n", "<Leader>q", '<Cmd>call VSCodeNotify("workbench.action.closeActiveEditor")<CR>', opts)
@@ -66,13 +164,13 @@ keymap.set("n", "<leader>jj", '<Cmd>call VSCodeNotify("editor.action.showHover")
 
 keymap.set("n", "<C-p>", '<Cmd>call VSCodeNotify("workbench.action.quickOpen")<CR>', { desc = "File search" })
 keymap.set("n", ";f", '<Cmd>call VSCodeNotify("workbench.action.quickOpen")<CR>', { desc = "File search" })
-
 keymap.set(
 	"n",
 	"<leader><leader>",
 	'<Cmd>call VSCodeNotify("workbench.action.quickOpen")<CR>',
 	{ desc = "File search" }
 )
+
 keymap.set("n", ";r", '<Cmd>call VSCodeNotify("workbench.action.findInFiles")<CR>', { desc = "Live grep" })
 
 keymap.set("n", "<C-h>", '<Cmd>call VSCodeNotify("workbench.action.navigateLeft")<CR>', { desc = "Navigate left" })
@@ -80,53 +178,32 @@ keymap.set("n", "<C-j>", '<Cmd>call VSCodeNotify("workbench.action.navigateDown"
 keymap.set("n", "<C-k>", '<Cmd>call VSCodeNotify("workbench.action.navigateUp")<CR>', { desc = "Navigate up" })
 keymap.set("n", "<C-l>", '<Cmd>call VSCodeNotify("workbench.action.navigateRight")<CR>', { desc = "Navigate right" })
 
-keymap.set("n", "<leader>sq", 'ciw"<C-r>""<Esc>', { desc = "Surround word with quotes" })
-keymap.set("n", "<leader>s'", "ciw'<C-r>\"'<Esc>", { desc = "Surround word with single quotes" })
-keymap.set("n", "<leader>s(", 'ciw(<C-r>")<Esc>', { desc = "Surround word with parentheses" })
-keymap.set("n", "<leader>s[", 'ciw[<C-r>"]<Esc>', { desc = "Surround word with brackets" })
-keymap.set("n", "<leader>s{", 'ciw{<C-r>"}<Esc>', { desc = "Surround word with braces" })
+--------------------------------------------------
+-- Folding (VSCode)
+--------------------------------------------------
 
-keymap.set("v", "<leader>q", 'c"<C-r>""<Esc>', { desc = "Surround selection with quotes" })
-keymap.set("v", "<leader>'", "c'<C-r>\"'<Esc>", { desc = "Surround selection with single quotes" })
-keymap.set("v", "<leader>(", 'c(<C-r>")<Esc>', { desc = "Surround selection with parentheses" })
-keymap.set("v", "<leader>[", 'c[<C-r>"]<Esc>', { desc = "Surround selection with brackets" })
-keymap.set("v", "<leader>{", 'c{<C-r>"}<Esc>', { desc = "Surround selection with braces" })
+-- Fold / unfold at cursor
+keymap.set("n", "zc", '<Cmd>call VSCodeNotify("editor.fold")<CR>', { desc = "Fold at cursor" })
+keymap.set("n", "zo", '<Cmd>call VSCodeNotify("editor.unfold")<CR>', { desc = "Unfold at cursor" })
+keymap.set("n", "za", '<Cmd>call VSCodeNotify("editor.toggleFold")<CR>', { desc = "Toggle fold" })
 
--- Vim-surround style mappings (simplified and working)
--- Add surrounds: ysiw" (surround inner word with quotes)
-keymap.set("n", 'ysiw"', 'viw<Esc>`<i"<Esc>`>la"<Esc>', { desc = "Surround inner word with quotes" })
-keymap.set("n", "ysiw'", "viw<Esc>`<i'<Esc>`>la'<Esc>", { desc = "Surround inner word with single quotes" })
-keymap.set("n", "ysiw(", "viw<Esc>`<i(<Esc>`>la)<Esc>", { desc = "Surround inner word with parentheses" })
-keymap.set("n", "ysiw)", "viw<Esc>`<i(<Esc>`>la)<Esc>", { desc = "Surround inner word with parentheses" })
-keymap.set("n", "ysiw[", "viw<Esc>`<i[<Esc>`>la]<Esc>", { desc = "Surround inner word with brackets" })
-keymap.set("n", "ysiw]", "viw<Esc>`<i[<Esc>`>la]<Esc>", { desc = "Surround inner word with brackets" })
-keymap.set("n", "ysiw{", "viw<Esc>`<i{<Esc>`>la}<Esc>", { desc = "Surround inner word with braces" })
-keymap.set("n", "ysiw}", "viw<Esc>`<i{<Esc>`>la}<Esc>", { desc = "Surround inner word with braces" })
-keymap.set("n", "ysiw<", "viw<Esc>`<i<<Esc>`>la><Esc>", { desc = "Surround inner word with angle brackets" })
-keymap.set("n", "ysiw>", "viw<Esc>`<i<<Esc>`>la><Esc>", { desc = "Surround inner word with angle brackets" })
-keymap.set("n", "ysiw`", "viw<Esc>`<i`<Esc>`>la`<Esc>", { desc = "Surround inner word with backticks" })
+-- Fold / unfold recursively
+keymap.set("n", "zC", '<Cmd>call VSCodeNotify("editor.foldRecursively")<CR>', { desc = "Fold recursively" })
+keymap.set("n", "zO", '<Cmd>call VSCodeNotify("editor.unfoldRecursively")<CR>', { desc = "Unfold recursively" })
 
--- Delete surrounds: ds" (delete surrounding quotes)
-keymap.set("n", 'ds"', 'F"xf"x', { desc = "Delete surrounding quotes" })
-keymap.set("n", "ds'", "F'xf'x", { desc = "Delete surrounding single quotes" })
-keymap.set("n", "ds(", "F(xf)x", { desc = "Delete surrounding parentheses" })
-keymap.set("n", "ds)", "F(xf)x", { desc = "Delete surrounding parentheses" })
-keymap.set("n", "ds[", "F[xf]x", { desc = "Delete surrounding brackets" })
-keymap.set("n", "ds]", "F[xf]x", { desc = "Delete surrounding brackets" })
-keymap.set("n", "ds{", "F{xf}x", { desc = "Delete surrounding braces" })
-keymap.set("n", "ds}", "F{xf}x", { desc = "Delete surrounding braces" })
-keymap.set("n", "ds<", "F<xf>x", { desc = "Delete surrounding angle brackets" })
-keymap.set("n", "ds>", "F<xf>x", { desc = "Delete surrounding angle brackets" })
-keymap.set("n", "ds`", "F`xf`x", { desc = "Delete surrounding backticks" })
+-- Fold / unfold all
+keymap.set("n", "zM", '<Cmd>call VSCodeNotify("editor.foldAll")<CR>', { desc = "Fold all" })
+keymap.set("n", "zR", '<Cmd>call VSCodeNotify("editor.unfoldAll")<CR>', { desc = "Unfold all" })
 
--- Change surrounds: cs"' (change quotes to single quotes)
-keymap.set("n", "cs\"'", "F\"r'f\"r'", { desc = "Change double quotes to single quotes" })
-keymap.set("n", "cs'\"", "F'r\"f'r\"", { desc = "Change single quotes to double quotes" })
-keymap.set("n", 'cs"(', 'F"r(f"r)', { desc = "Change quotes to parentheses" })
-keymap.set("n", 'cs"[', 'F"r[f"r]', { desc = "Change quotes to brackets" })
-keymap.set("n", 'cs"{', 'F"r{f"r}', { desc = "Change quotes to braces" })
-keymap.set("n", "cs([", "F(r[f)r]", { desc = "Change parentheses to brackets" })
-keymap.set("n", "cs({", "F(r{f)r}", { desc = "Change parentheses to braces" })
-keymap.set("n", "cs[{", "F[r{f]r}", { desc = "Change brackets to braces" })
+-- Fold by level (1–5)
+keymap.set("n", "<leader>z1", '<Cmd>call VSCodeNotify("editor.foldLevel1")<CR>', { desc = "Fold level 1" })
+keymap.set("n", "<leader>z2", '<Cmd>call VSCodeNotify("editor.foldLevel2")<CR>', { desc = "Fold level 2" })
+keymap.set("n", "<leader>z3", '<Cmd>call VSCodeNotify("editor.foldLevel3")<CR>', { desc = "Fold level 3" })
+keymap.set("n", "<leader>z4", '<Cmd>call VSCodeNotify("editor.foldLevel4")<CR>', { desc = "Fold level 4" })
+keymap.set("n", "<leader>z5", '<Cmd>call VSCodeNotify("editor.foldLevel5")<CR>', { desc = "Fold level 5" })
+
+--------------------------------------------------
+-- Clear search highlight
+--------------------------------------------------
 
 keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlighting" })
