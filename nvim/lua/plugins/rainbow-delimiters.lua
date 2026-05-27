@@ -60,16 +60,15 @@ return {
         go = "rainbow-delimiters",
       },
       highlight = {
-        "RainbowDelimiterPeach1",
-        "RainbowDelimiterPeach2",
-        "RainbowDelimiterPeach3",
+        "RainbowDelimiterBlue",
+        "RainbowDelimiterSkyBlue",
+        "RainbowDelimiterSteelBlue",
       },
     }
 
     vim.cmd([[
-      highlight RainbowDelimiterPeach1 guifg=#ffdcc8
-      highlight RainbowDelimiterPeach2 guifg=#f5b896
-      highlight RainbowDelimiterPeach3 guifg=#e09060
+      highlight RainbowDelimiterSkyBlue   guifg=#74c7ec
+      highlight RainbowDelimiterSteelBlue guifg=#5b8dd9
     ]])
   end,
 }

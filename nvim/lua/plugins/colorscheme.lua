@@ -24,7 +24,7 @@ return {
             Function   = { fg = "#8aadf4", style = { "bold" } },   -- catppuccin blue
             Keyword    = { fg = "#c6a0f6" },                        -- catppuccin mauve (softer purple)
             String     = { fg = "#99FDE4" },                        -- mint teal — unchanged
-            Variable   = { fg = "#eed49f" },                        -- catppuccin yellow-gold
+            Variable   = { fg = "#eed49f" },                        -- sage green
             Identifier = { fg = "#7dc4e4" },                        -- catppuccin sapphire (distinct from Function)
             Type       = { fg = "#f5a97f" },                        -- catppuccin peach
             Operator   = { fg = "#91d7e3" },                        -- catppuccin sky
@@ -62,7 +62,7 @@ return {
 
             -- Spell
             SpellBad = { fg = "#ed8796", style = { "undercurl" } },
-            SpellCap = { fg = "#eed49f", style = { "undercurl" } },
+            SpellCap = { fg = "#f0c6c6", style = { "undercurl" } },
           }
         end,
       })
