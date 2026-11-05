@@ -28,6 +28,7 @@ return {
       "css",
       "scss",
       "graphql",
+      "prisma",
       "rust",
     },
     sync_install = false,

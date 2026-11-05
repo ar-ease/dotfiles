@@ -45,6 +45,20 @@ return {
     },
     opts = {
       inlay_hints = { enabled = false },
+      diagnostics = {
+        virtual_text = {
+          prefix = "·",
+          spacing = 2,
+          -- "msg (eslint: no-unused-vars)"
+          format = function(d)
+            if not d.source then
+              return d.message
+            end
+            return d.code and string.format("%s (%s: %s)", d.message, d.source, d.code)
+              or string.format("%s (%s)", d.message, d.source)
+          end,
+        },
+      },
       servers = {
         -- Lua
         lua_ls = {
