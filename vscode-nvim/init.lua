@@ -128,6 +128,11 @@ keymap.set("n", "<leader>i", '<Cmd>call VSCodeNotify("workbench.action.navigateF
 --------------------------------------------------
 
 keymap.set("n", "<Leader>w", '<Cmd>call VSCodeNotify("workbench.action.files.save")<CR>', opts)
+-- :w / :wq use VS Code save (format-on-save, auto-save) instead of a buffer-only write
+vim.cmd([[
+cnoreabbrev <expr> w v:cmdarg ==# "" ? "call VSCodeNotify(\"workbench.action.files.save\")" . "\<CR>" : "w"
+cnoreabbrev <expr> wq v:cmdarg ==# "" ? "call VSCodeNotify(\"workbench.action.files.save\")" . "\<CR>" . "call VSCodeNotify(\"workbench.action.closeActiveEditor\")" . "\<CR>" : "wq"
+]])
 keymap.set("n", "<Leader>q", '<Cmd>call VSCodeNotify("workbench.action.closeActiveEditor")<CR>', opts)
 keymap.set("n", "<Leader>Q", '<Cmd>call VSCodeNotify("workbench.action.closeAllEditors")<CR>', opts)
 

@@ -45,7 +45,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"  # tab title + status dot handled at bottom
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -127,7 +127,7 @@ alias tn="(){tmux new -s $1}"
 alias p="pnpm"
 alias ga="git add ."
 alias gc='git commit -m '
-alias gs="git status"
+alias gss="git status"
 
 alias 1.="cd .."
 alias 2.="cd ..."
@@ -167,8 +167,12 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/ar-ease/.cache/lm-studio/bin"
-export PATH="/opt/homebrew/bin/go:$PATH"
-export PATH="$(go env GOPATH)/bin:$PATH"
+
+# Homebrew (Apple Silicon) — this is what puts /opt/homebrew/bin on PATH so gs, ocrmypdf deps, etc. resolve
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Go tools — only runs if go is installed; adds Go's package bin (e.g. ~/go/bin)
+command -v go >/dev/null && export PATH="$(go env GOPATH)/bin:$PATH"
 
 
 
@@ -192,3 +196,31 @@ alias claude-mem='/Users/ar-ease/.bun/bin/bun "/Users/ar-ease/.claude/plugins/ca
 
 # Added by Antigravity IDE
 export PATH="/Users/ar-ease/.antigravity-ide/antigravity-ide/bin:$PATH"
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/ar-ease/.local/bin:$PATH"
+export OMNIROUTE_KEY=$(security find-generic-password -a "$USER" -s omniroute -w 2>/dev/null)
+
+alias claude-pro="env -u ANTHROPIC_BASE_URL -u ANTHROPIC_AUTH_TOKEN -u ANTHROPIC_MODEL claude"
+alias claude-free="ANTHROPIC_BASE_URL=http://localhost:20128 ANTHROPIC_AUTH_TOKEN=$OMNIROUTE_KEY ANTHROPIC_MODEL=auto/coding:free claude"
+alias claude-free='ANTHROPIC_BASE_URL=http://localhost:3001 ANTHROPIC_AUTH_TOKEN="freellmapi-93c7eb3f8afe374185470d5d6f0f9a59c39d261f489e0706" ANTHROPIC_MODEL=auto claude'
+
+# opencode
+export PATH=/Users/ar-ease/.opencode/bin:$PATH
+
+# JobPilot Terminal
+export PATH="/Users/ar-ease/.jobpilot:$PATH"
+
+# agent-notify shortcuts
+[ -f ~/.agent-notify/aliases.zsh ] && source ~/.agent-notify/aliases.zsh
+
+# ───── Tab status dot (Ghostty) ─────
+# 🔸 = something running (agent/command busy) · 🔹 = idle prompt, free to use
+# Claude Code would overwrite the title, so let the shell own it.
+export CLAUDE_CODE_DISABLE_TERMINAL_TITLE=1
+_tab_idle() { print -Pn "\e]2;🔹 %1~\a" }
+_tab_busy() { print -n "\e]2;🔸 ${1%% *}\a" }
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _tab_idle
+add-zsh-hook preexec _tab_busy

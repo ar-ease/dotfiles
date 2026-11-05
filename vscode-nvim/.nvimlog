@@ -1,0 +1,2 @@
+WRN 2026-06-15T11:34:48.443 ?.11607    server_start:193: Failed to start server: operation not permitted: /var/folders/9z/0vskgwyj2dv_wkbbysg81v040000gn/T/nvim.ar-ease/xezzU8/nvim.11607.0
+WRN 2026-06-15T11:34:48.959 ?.11675    server_start:193: Failed to start server: operation not permitted: /var/folders/9z/0vskgwyj2dv_wkbbysg81v040000gn/T/nvim.ar-ease/7nlClD/nvim.11675.0
