@@ -115,7 +115,19 @@ keybind = "super+up=jump_to_prompt:-1"
 keybind = "super+down=jump_to_prompt:1"
 
 # NEW: resize the current split (hold super+ctrl, tap h/j/k/l repeatedly)
-keybind = "super+ctrl+h=resize_split:left,300"
-keybind = "super+ctrl+j=resize_split:down,300"
-keybind = "super+ctrl+k=resize_split:up,300"
-keybind = "super+ctrl+l=resize_split:right,300"
+keybind = "super+ctrl+h=resize_split:left,150"
+keybind = "super+ctrl+j=resize_split:down,150"
+keybind = "super+ctrl+k=resize_split:up,150"
+keybind = "super+ctrl+l=resize_split:right,150"
+keybind = "super+ctrl+left=resize_split:left,40"
+keybind = "super+ctrl+down=resize_split:down,40"
+keybind = "super+ctrl+up=resize_split:up,40"
+keybind = "super+ctrl+right=resize_split:right,40"
+
+# Keyboard scrolling (Mac has no Home/PgUp keys without fn)
+keybind = "super+alt+k=scroll_page_lines:-3"
+keybind = "super+alt+j=scroll_page_lines:3"
+keybind = "super+alt+u=scroll_page_fractional:-0.5"
+keybind = "super+alt+d=scroll_page_fractional:0.5"
+keybind = "super+alt+g=scroll_to_top"
+keybind = "super+alt+shift+g=scroll_to_bottom"
